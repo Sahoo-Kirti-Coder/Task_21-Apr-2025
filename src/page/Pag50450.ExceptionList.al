@@ -64,6 +64,20 @@ page 50450 "Exception List"
                     Report.RunModal(Report::"Exception List Report", true, true);
                 end;
             }
+            action("Show Posted Document")
+            {
+                ApplicationArea = All;
+                Image = Document;
+                trigger OnAction()
+                var
+                    salesInvoiceHeader: Record "Sales Invoice Header";
+                begin
+                    if Rec."Document No" <> '' then begin
+                        salesInvoiceHeader.Get(Rec."Document No");
+                        Page.Run(Page::"Posted Sales Invoice", salesInvoiceHeader);
+                    end;
+                end;
+            }
         }
     }
 

@@ -28,9 +28,12 @@ report 50550 "Exception List Report"
                 exceptionTable: Record "Exception Table";
                 EntryNoToGiven: Integer;
             begin
-                EntryNoToGiven := 1;
-                if exceptionTable.FindSet() then
-                    exceptionTable.DeleteAll();
+                if exceptionTable.FindLast() then
+                    EntryNoToGiven := exceptionTable."Entry No" + 1
+                else
+                    EntryNoToGiven := 1;
+                // if exceptionTable.FindSet() then
+                //     exceptionTable.DeleteAll();
                 if (oldestDate = 0D) and (latestDate = 0D) then begin
                     if customerNo = '' then begin
                         customer.Reset();
