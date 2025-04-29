@@ -29,6 +29,7 @@ codeunit 50650 "Exception Table Management"
                         exceptionTable."Days Late" := totalInterval;
                         exceptionTable."Invoice Date" := custLedgerEntry."Posting Date";
                         exceptionTable."Due Date" := custLedgerEntry."Due Date";
+                        exceptionTable.Entry_No_CLE := custLedgerEntry."Entry No.";
                         exceptionTable.Insert();
                         entryNoHolder.Add(EntryNoToGiven);
                         EntryNoToGiven += 1;

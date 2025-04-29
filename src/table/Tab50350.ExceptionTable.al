@@ -44,6 +44,10 @@ table 50350 "Exception Table"
         {
             DataClassification = ToBeClassified;
         }
+        field(10; Entry_No_CLE; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

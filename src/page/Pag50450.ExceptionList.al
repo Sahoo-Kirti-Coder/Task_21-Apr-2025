@@ -81,6 +81,33 @@ page 50450 "Exception List"
         }
     }
 
+    trigger OnOpenPage()
+    var
+        exceptionTable: Record "Exception Table";
+        custLedgerEntry: Record "Cust. Ledger Entry";
+        entryNoList: List of [Integer];
+        entryNo: Integer;
+    begin
+        if entryNoList.Count > 0 then
+            entryNoList.RemoveRange(1, entryNoList.Count);
+        if exceptionTable.FindSet() then
+            repeat
+                if custLedgerEntry.Get(exceptionTable.Entry_No_CLE) then begin
+                    custLedgerEntry.CalcFields("Remaining Amount");
+                    if custLedgerEntry."Remaining Amount" = 0 then
+                        entryNoList.Add(exceptionTable."Entry No");
+                end;
+            until exceptionTable.Next() = 0;
+
+        if entryNoList.Count > 0 then begin
+            foreach entryNo in entryNoList do begin
+                if exceptionTable.Get(entryNo) then begin
+                    exceptionTable.Delete();
+                end;
+            end;
+        end;
+    end;
+
     var
         myInt: Integer;
 }
